@@ -1,0 +1,24 @@
+{
+  "name": "junglecook315",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "serve": "live-server", 
+    "compile:sass": "sass scss/styles.scss css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilywebe/jungleCook315.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lilywebe/jungleCook315/issues"
+  },
+  "homepage": "https://github.com/lilywebe/jungleCook315#readme"
+}
