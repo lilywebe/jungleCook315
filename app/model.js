@@ -76,9 +76,8 @@ export function addRecipe(
   //add new recipe to recipe array
   recipes.push(recipe);
 
-  //set user in local storage
+  //set recipe in local storage
   localStorage.setItem("recipes", JSON.stringify(recipes));
-  //get user from local storage
 
   console.log(recipes);
 }
@@ -135,4 +134,31 @@ export function deleteRecipe(recipeid) {
   localStorage.setItem("recipes", JSON.stringify(recipes));
 
   console.log(recipes);
+}
+
+//initpreloadedrecipes DOES NOT work rn
+export async function initPreLoadedRecipes() {
+  await fetch("../data/recipes.json")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      if (localStorage.getItem("recipes") !== null) {
+        //get current recipe array if already exists in local storage
+        // to be clear it should not exist
+        var recipes = JSON.parse(localStorage.getItem("recipes"));
+      } else {
+        //if it doesn't already exist, create a recipe array from json file
+        var recipes = [];
+        recipes.push(data.recipes.recipe);
+      }
+      //set recipe in local storage
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+
+      console.log(
+        "get preset recipe",
+        JSON.parse(localStorage.getItem("recipes"))
+      );
+    });
 }
