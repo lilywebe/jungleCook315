@@ -5,5 +5,6 @@ function initListeners() {
 }
 
 $(document).ready(function () {
+  model.deleteRecipe(2);
   initListeners();
 });

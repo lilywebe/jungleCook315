@@ -44,3 +44,95 @@ export function logout() {
     console.log("logged out");
   }
 }
+
+export function addRecipe(
+  image,
+  name,
+  description,
+  time,
+  servings,
+  ingredients,
+  instructions
+) {
+  if (localStorage.getItem("recipes") !== null) {
+    //get current recipe array if already exists in local storage
+    var recipes = JSON.parse(localStorage.getItem("recipes"));
+  } else {
+    //if it doesn't already exist, create a blank recipe array
+    var recipes = [];
+  }
+
+  let recipe = {
+    recipeid: recipes.length,
+    image: image,
+    name: name,
+    description: description,
+    time: time,
+    servings: servings,
+    ingredients: ingredients,
+    instructions: instructions,
+  };
+
+  //add new recipe to recipe array
+  recipes.push(recipe);
+
+  //set user in local storage
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+  //get user from local storage
+
+  console.log(recipes);
+}
+
+export function editRecipe(
+  recipeid,
+  image,
+  name,
+  description,
+  time,
+  servings,
+  ingredients,
+  instructions
+) {
+  if (localStorage.getItem("recipes") !== null) {
+    //get current recipe array if already exists in local storage
+    var recipes = JSON.parse(localStorage.getItem("recipes"));
+  } else {
+    //if it doesn't already exist, we can't edit it
+    alert("recipe not found");
+  }
+
+  //update values at recipe to be newly inputted values
+  recipes[recipeid] = {
+    recipeid: recipeid,
+    image: image,
+    name: name,
+    description: description,
+    time: time,
+    servings: servings,
+    ingredients: ingredients,
+    instructions: instructions,
+  };
+
+  //update value in localstorage to match
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+
+  console.log(recipes);
+}
+
+export function deleteRecipe(recipeid) {
+  if (localStorage.getItem("recipes") !== null) {
+    //get current recipe array if already exists in local storage
+    var recipes = JSON.parse(localStorage.getItem("recipes"));
+  } else {
+    //if it doesn't already exist, we can't delete it
+    alert("recipe not found");
+  }
+
+  //remove recipe
+  recipes.splice(recipeid, 1);
+
+  //update local storage to not have that recipe
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+
+  console.log(recipes);
+}
