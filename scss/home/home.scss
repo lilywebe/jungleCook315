@@ -1,0 +1,10 @@
+.home {
+    margin-top: -135px;
+    margin-bottom: -50px;
+    background-image: linear-gradient(rgb($site-red,0.5), rgb($site-red,0.5)), url("../images/hero.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 800px;
+}

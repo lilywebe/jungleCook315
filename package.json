@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "serve": "live-server", 
-    "compile:sass": "sass scss/styles.scss css/styles.css"
+    "serve": "live-server",
+    "compile:sass": "sass scss/styles.scss css/styles.css -w"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/lilywebe/jungleCook315/issues"
   },
-  "homepage": "https://github.com/lilywebe/jungleCook315#readme"
+  "homepage": "https://github.com/lilywebe/jungleCook315#readme",
+  "devDependencies": {
+    "sass": "^1.56.0"
+  }
 }

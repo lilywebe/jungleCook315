@@ -1,0 +1,32 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $site-width;
+    width: 93%;
+    margin: 38px auto;
+    
+    .nav-logo {
+        width: 167px;
+        height: 55px;
+    }
+
+    .nav-links {
+        max-width: 550px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        a {
+            font-family: Caveat-Regular;
+            text-decoration: none;
+            font-size: 25px;
+            color: #000;
+        }
+
+        .site-btn {
+            @include site-button()
+        }
+    }
+}

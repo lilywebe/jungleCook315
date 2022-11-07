@@ -1,0 +1,8 @@
+@mixin site-button() {
+    width: 158px;
+    height: 52px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background-color: $site-yellow;
+    text-align: center;
+}
