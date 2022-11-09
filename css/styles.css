@@ -3,6 +3,14 @@
   src: url("./fonts/Caveat-Regular.ttf");
 }
 @font-face {
+  font-family: Caveat-Bold;
+  src: url("./fonts/Caveat-Bold.ttf");
+}
+@font-face {
+  font-family: Lato-Regular;
+  src: url("./fonts/Lato/Lato-Regular.ttf");
+}
+@font-face {
   font-family: Lato-Italic;
   src: url("./fonts/Lato/Lato-Italic.ttf");
 }
@@ -16,12 +24,19 @@ html, body {
   height: 100%;
 }
 
+#app {
+  max-width: 1280px;
+  width: 100%;
+  margin: auto;
+}
+
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 1280px;
   width: 93%;
+  padding: 0 50px;
   margin: 38px auto;
 }
 nav .nav-logo {
@@ -41,6 +56,9 @@ nav .nav-links a {
   font-size: 25px;
   color: #000;
 }
+nav .nav-links a:hover {
+  border-bottom: 3px solid #000;
+}
 nav .nav-links .site-btn {
   width: 158px;
   height: 52px;
@@ -48,6 +66,15 @@ nav .nav-links .site-btn {
   border-radius: 25px;
   background-color: #FFD972;
   text-align: center;
+}
+nav .nav-links .site-btn:hover {
+  border-bottom: none;
+}
+nav .nav-links .site-btn:hover span {
+  border-bottom: 3px solid #000;
+}
+nav .nav-links .current-page {
+  border-bottom: 3px solid #000;
 }
 
 footer {
@@ -60,6 +87,7 @@ footer {
   font-family: "Lato-Italic";
   font-size: 15px;
   margin-bottom: 26px;
+  padding: 0 50px;
 }
 footer .footer-links {
   display: flex;
@@ -87,6 +115,46 @@ footer .footer-socials .footer-svg {
   background-repeat: no-repeat;
   width: 100%;
   height: 800px;
+}
+.home .home-info {
+  position: absolute;
+  top: 25%;
+  left: 55%;
+}
+.home .home-info .home-pink-bubble {
+  width: 167px;
+  height: 167px;
+  border-radius: 50%;
+  background-color: #FCBCB8;
+  padding: 65px 0 0 40px;
+  text-align: center;
+}
+.home .home-info .home-pink-bubble p {
+  font-family: "Lato-Italic";
+  font-size: 10px;
+  width: 95px;
+}
+.home .home-info .home-pink-bubble .home-yellow-bubble {
+  position: absolute;
+  background-color: #FFD972;
+  border-radius: 50%;
+  width: 357px;
+  height: 357px;
+  text-align: center;
+  padding-top: 110px;
+  top: 65px;
+  right: 50px;
+}
+.home .home-info .home-pink-bubble .home-yellow-bubble h1 {
+  font-family: "Caveat-Regular";
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+.home .home-info .home-pink-bubble .home-yellow-bubble p {
+  font-size: 13px;
+  font-family: "Lato-Regular";
+  width: 150px;
+  margin: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

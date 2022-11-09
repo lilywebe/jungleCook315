@@ -162,3 +162,18 @@ export async function initPreLoadedRecipes() {
       );
     });
 }
+
+export function currentPage(pageID) {
+  if(pageID == "" || pageID == "home") {
+    $.get(`pages/home.html`, function(data) {
+        $("#app").html(data) 
+    })
+  } else {
+    $.get(`pages/${pageID}.html`, function(data) {
+        $("#app").html(data) 
+    })
+  }
+  
+  //if the page in the nav contains the pageID, give it a bottom border
+  // $(`#${pageID}`).addClass("current-page")
+}

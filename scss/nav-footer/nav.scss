@@ -4,6 +4,7 @@ nav {
     justify-content: space-between;
     max-width: $site-width;
     width: 93%;
+    padding: 0 50px;
     margin: 38px auto;
     
     .nav-logo {
@@ -25,8 +26,24 @@ nav {
             color: #000;
         }
 
+        a:hover {
+            border-bottom: 3px solid #000;
+        }
+
         .site-btn {
             @include site-button()
+        }
+
+        .site-btn:hover{
+            border-bottom: none;
+
+            span {
+                border-bottom: 3px solid #000;
+            }
+        }
+
+        .current-page {
+            border-bottom: 3px solid #000;
         }
     }
 }
