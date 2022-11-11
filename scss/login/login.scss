@@ -1,0 +1,63 @@
+.login-page{
+    height:600px;
+    width:100%;
+    background-color: $site-yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    h2{
+        font-size: 30px;
+    }
+
+    h3{
+        font-size: 12px;
+    }
+
+    input{
+        background-color: $site-yellow;
+        border:0;
+        outline:0;
+        border-style: solid;
+        border-bottom: 3px solid black;
+        
+        &::placeholder{
+            font-size: 12px;
+        color:black;
+        }
+
+        
+    }
+
+    
+
+    .login-form{
+        height:300px;
+        display: flex;
+        //lign-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        button{
+            @include site-button();
+            font-size: 25px;
+            width:209px;
+        }
+
+        
+    }
+
+    .signup-form{
+        height:600px;
+        display: flex;
+        //align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        button{
+            @include site-button();
+            font-size: 25px;
+            width:250px;
+        }
+       
+    }
+    
+}

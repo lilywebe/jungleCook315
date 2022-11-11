@@ -163,17 +163,18 @@ export async function initPreLoadedRecipes() {
     });
 }
 
-export function currentPage(pageID) {
-  if(pageID == "" || pageID == "home") {
-    $.get(`pages/home.html`, function(data) {
-        $("#app").html(data) 
-    })
+export function currentPage(pageID, callback) {
+  if (pageID == "" || pageID == "home") {
+    $.get(`pages/home.html`, function (data) {
+      $("#app").html(data);
+    });
   } else {
-    $.get(`pages/${pageID}.html`, function(data) {
-        $("#app").html(data) 
-    })
+    $.get(`pages/${pageID}.html`, function (data) {
+      $("#app").html(data);
+      callback();
+    });
   }
-  
+
   //if the page in the nav contains the pageID, give it a bottom border
   // $(`#${pageID}`).addClass("current-page")
 }
