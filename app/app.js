@@ -8,6 +8,7 @@ function route() {
   if (pageID == "" || pageID == "home") {
     MODEL.currentPage("home");
   } else if (pageID == "login") {
+    console.log("got to login");
     MODEL.currentPage("login", initLoginListeners);
   } else if (pageID == "create-recipe") {
     MODEL.currentPage("create-recipe", initCreateRecipe);
@@ -21,6 +22,8 @@ function initLoginListeners() {
     signUpUser();
   });
   $("#login-submit").on("click", logInUser);
+
+  $("#logout-submit").on("click", logOutUser);
 }
 
 function initCreateRecipe() {
@@ -44,6 +47,7 @@ function createRecipe() {
 
 function initListeners() {
   console.log("ready");
+  $(window).on("hashchange", route);
   route();
 }
 
@@ -69,6 +73,10 @@ function logInUser() {
 
   $("#login-email").val("");
   $("#login-password").val();
+}
+
+function logOutUser() {
+  MODEL.logout();
 }
 
 $(document).ready(function () {

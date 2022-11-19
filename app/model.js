@@ -37,11 +37,14 @@ export async function login(uname, pass) {
 }
 
 export function logout() {
+  console.log("making it to the model");
   if (localStorage) {
     let user = JSON.parse(localStorage.getItem("currentUser"));
     user.status = false;
     localStorage.setItem("currentUser", JSON.stringify(user));
     console.log("logged out");
+    alert("You've been logged out");
+    currentPage("home");
   }
 }
 
@@ -168,6 +171,19 @@ export function currentPage(pageID, callback) {
     $.get(`pages/home.html`, function (data) {
       $("#app").html(data);
     });
+  } else if (pageID == "login") {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user.status == true) {
+      $.get(`pages/logout.html`, function (data) {
+        $("#app").html(data);
+        callback();
+      });
+    } else {
+      $.get(`pages/login.html`, function (data) {
+        $("#app").html(data);
+        callback();
+      });
+    }
   } else {
     $.get(`pages/${pageID}.html`, function (data) {
       $("#app").html(data);

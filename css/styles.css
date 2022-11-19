@@ -157,7 +157,7 @@ footer .footer-socials .footer-svg {
   margin: auto;
 }
 
-.login-page {
+.login-page, .logout-page {
   height: 600px;
   width: 100%;
   background-color: #FFD972;
@@ -165,30 +165,33 @@ footer .footer-socials .footer-svg {
   align-items: center;
   justify-content: space-evenly;
 }
-.login-page h2 {
+.login-page h2, .logout-page h2 {
   font-size: 30px;
 }
-.login-page h3 {
+.login-page h3, .logout-page h3 {
   font-size: 12px;
 }
-.login-page input {
+.login-page input, .logout-page input {
   background-color: #FFD972;
   border: 0;
   outline: 0;
   border-style: solid;
   border-bottom: 3px solid black;
 }
-.login-page input::placeholder {
+.login-page input::placeholder, .logout-page input::placeholder {
   font-size: 12px;
   color: black;
 }
-.login-page .login-form {
+.login-page #logout-submit, .logout-page #logout-submit {
+  margin: 0 auto;
+}
+.login-page .login-form, .login-page .logout-form, .logout-page .login-form, .logout-page .logout-form {
   height: 300px;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 }
-.login-page .login-form button {
+.login-page .login-form button, .login-page .logout-form button, .logout-page .login-form button, .logout-page .logout-form button {
   width: 158px;
   height: 52px;
   padding: 10px 20px;
@@ -198,13 +201,13 @@ footer .footer-socials .footer-svg {
   font-size: 25px;
   width: 209px;
 }
-.login-page .signup-form {
+.login-page .signup-form, .logout-page .signup-form {
   height: 600px;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 }
-.login-page .signup-form button {
+.login-page .signup-form button, .logout-page .signup-form button {
   width: 158px;
   height: 52px;
   padding: 10px 20px;

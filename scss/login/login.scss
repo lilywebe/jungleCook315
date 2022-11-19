@@ -1,4 +1,4 @@
-.login-page{
+.login-page, .logout-page{
     height:600px;
     width:100%;
     background-color: $site-yellow;
@@ -29,9 +29,13 @@
         
     }
 
+    #logout-submit{
+        margin: 0 auto;
+    }
+
     
 
-    .login-form{
+    .login-form, .logout-form{
         height:300px;
         display: flex;
         //lign-items: center;
