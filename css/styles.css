@@ -219,11 +219,60 @@ footer .footer-socials .footer-svg {
 }
 
 .create-recipe-page {
+  max-width: 500px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  height: 1600px;
+  margin-top: 40px;
+  position: relative;
+  text-align: left;
+}
+.create-recipe-page .section-header {
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+.create-recipe-page #submitBtn {
+  width: 422px;
+  height: 52px;
+  background-color: #EFA7A7;
+  border-bottom: 0;
+  border-radius: 25px;
+  font-size: 25px;
+}
+.create-recipe-page h2 {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.create-recipe-page input {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 100px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 20px;
+}
+.create-recipe-page .ingredients-section, .create-recipe-page .instructions-section {
+  position: relative;
+  margin-bottom: 50px;
+}
+.create-recipe-page .ingredients-section .addIngredButton, .create-recipe-page .ingredients-section .addStepButton, .create-recipe-page .instructions-section .addIngredButton, .create-recipe-page .instructions-section .addStepButton {
+  width: 50px;
+  height: 50px;
+  background-color: #EFA7A7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  border-radius: 25px;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  bottom: 110px;
+  user-select: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

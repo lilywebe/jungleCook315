@@ -48,15 +48,14 @@ export function logout() {
   }
 }
 
-export function addRecipe(
-  image,
-  name,
-  description,
-  time,
-  servings,
-  ingredients,
-  instructions
-) {
+export function viewSingleRecipe(recipeid) {
+  let recipes = JSON.parse(localStorage.getItem("recipes"));
+  let user = JSON.parse(localStorage.getItem("user"));
+  let recipe = recipes[recipeid];
+  return recipe, user.status;
+}
+
+export function addRecipe(recipeObj) {
   if (localStorage.getItem("recipes") !== null) {
     //get current recipe array if already exists in local storage
     var recipes = JSON.parse(localStorage.getItem("recipes"));
@@ -65,19 +64,10 @@ export function addRecipe(
     var recipes = [];
   }
 
-  let recipe = {
-    recipeid: recipes.length,
-    image: image,
-    name: name,
-    description: description,
-    time: time,
-    servings: servings,
-    ingredients: ingredients,
-    instructions: instructions,
-  };
+  recipeObj.recipeid = recipes.length;
 
   //add new recipe to recipe array
-  recipes.push(recipe);
+  recipes.push(recipeObj);
 
   //set recipe in local storage
   localStorage.setItem("recipes", JSON.stringify(recipes));
@@ -85,16 +75,7 @@ export function addRecipe(
   console.log(recipes);
 }
 
-export function editRecipe(
-  recipeid,
-  image,
-  name,
-  description,
-  time,
-  servings,
-  ingredients,
-  instructions
-) {
+export function editRecipe(recipeObj) {
   if (localStorage.getItem("recipes") !== null) {
     //get current recipe array if already exists in local storage
     var recipes = JSON.parse(localStorage.getItem("recipes"));
@@ -184,6 +165,12 @@ export function currentPage(pageID, callback) {
         callback();
       });
     }
+  } else if (pageID == "create-recipe") {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    $.get(`pages/${pageID}.html`, function (data) {
+      $("#app").html(data);
+      callback(user.firstName);
+    });
   } else {
     $.get(`pages/${pageID}.html`, function (data) {
       $("#app").html(data);
