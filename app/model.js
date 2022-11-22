@@ -1,4 +1,9 @@
-export async function signup(fname, lname, uname, pass) {
+export function getUser() {
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  return currentUser;
+}
+
+export async function signup(fname, lname, uname, pass, callback) {
   //create an object from user input
 
   let user = {
@@ -13,10 +18,11 @@ export async function signup(fname, lname, uname, pass) {
   await localStorage.setItem("currentUser", JSON.stringify(user));
   //get user from local storage
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  callback();
   console.log(currentUser);
 }
 
-export async function login(uname, pass) {
+export async function login(uname, pass, callback) {
   //get user stored in local storage
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -26,6 +32,7 @@ export async function login(uname, pass) {
       currentUser.status = true;
       await localStorage.setItem("currentUser", JSON.stringify(currentUser));
       console.log("logged in");
+      callback();
     } else {
       //nicer alerts needed
       alert("wrong password");
@@ -36,7 +43,7 @@ export async function login(uname, pass) {
   }
 }
 
-export function logout() {
+export function logout(callback) {
   console.log("making it to the model");
   if (localStorage) {
     let user = JSON.parse(localStorage.getItem("currentUser"));
@@ -44,15 +51,15 @@ export function logout() {
     localStorage.setItem("currentUser", JSON.stringify(user));
     console.log("logged out");
     alert("You've been logged out");
-    currentPage("home");
+    callback();
   }
 }
 
 export function viewSingleRecipe(recipeid) {
   let recipes = JSON.parse(localStorage.getItem("recipes"));
-  let user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("currentUser"));
   let recipe = recipes[recipeid];
-  return recipe, user.status;
+  return recipe;
 }
 
 export function addRecipe(recipeObj) {
@@ -120,31 +127,33 @@ export function deleteRecipe(recipeid) {
   console.log(recipes);
 }
 
-//initpreloadedrecipes DOES NOT work rn
-export async function initPreLoadedRecipes() {
-  await fetch("../data/recipes.json")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      if (localStorage.getItem("recipes") !== null) {
-        //get current recipe array if already exists in local storage
-        // to be clear it should not exist
-        var recipes = JSON.parse(localStorage.getItem("recipes"));
-      } else {
-        //if it doesn't already exist, create a recipe array from json file
-        var recipes = [];
-        recipes.push(data.recipes.recipe);
-      }
-      //set recipe in local storage
-      localStorage.setItem("recipes", JSON.stringify(recipes));
+export async function viewAllRecipes() {
+  let user = JSON.parse(localStorage.getItem("currentUser"));
+  let allRecipes = [];
+  let preLoadRecipes = [];
 
-      console.log(
-        "get preset recipe",
-        JSON.parse(localStorage.getItem("recipes"))
-      );
+  await $.getJSON("data/recipes.json", function (json) {
+    preLoadRecipes = json.recipes;
+    //console.log(preLoadRecipes);
+  });
+  $.each(preLoadRecipes, (idx, recipe) => {
+    allRecipes.push(recipe);
+  });
+  if (user.status == true) {
+    let userRecipes = JSON.parse(localStorage.getItem("recipes"));
+    $.each(userRecipes, (idx, recipe) => {
+      allRecipes.push(recipe);
     });
+  }
+  return allRecipes;
+}
+
+export function viewUserRecipes() {
+  let user = JSON.parse(localStorage.getItem("currentUser"));
+  if (user.status == true) {
+    let userRecipes = JSON.parse(localStorage.getItem("recipes"));
+    return userRecipes;
+  }
 }
 
 export function currentPage(pageID, callback) {
@@ -166,6 +175,18 @@ export function currentPage(pageID, callback) {
       });
     }
   } else if (pageID == "create-recipe") {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    $.get(`pages/${pageID}.html`, function (data) {
+      $("#app").html(data);
+      callback(user.firstName);
+    });
+  } else if (pageID == "your-recipes") {
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+    $.get(`pages/${pageID}.html`, function (data) {
+      $("#app").html(data);
+      callback(user.firstName);
+    });
+  } else if (pageID == "edit-recipe") {
     let user = JSON.parse(localStorage.getItem("currentUser"));
     $.get(`pages/${pageID}.html`, function (data) {
       $("#app").html(data);

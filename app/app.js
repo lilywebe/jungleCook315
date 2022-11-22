@@ -2,6 +2,7 @@ import * as MODEL from "./model.js";
 
 var ingredCount = 3;
 var stepCount = 3;
+var currentRecipe = "";
 
 function route() {
   let hashtagLink = window.location.hash; //get page from hashtag in url
@@ -15,6 +16,10 @@ function route() {
     MODEL.currentPage("login", initLoginListeners);
   } else if (pageID == "create-recipe") {
     MODEL.currentPage("create-recipe", addRecipe);
+  } else if (pageID == "your-recipes") {
+    MODEL.currentPage("your-recipes", displayUserRecipes);
+  } else if (pageID == "edit-recipe") {
+    MODEL.currentPage("edit-recipe", editRecipe);
   } else {
     MODEL.currentPage(pageID);
   }
@@ -88,7 +93,7 @@ function addRecipe(userName) {
 }
 
 //whenever the larger "recipes page" gets made, each recipe needs to have the "edit" button pass over the recipeid
-function editRecipe(recipeid) {
+function editRecipe(userName) {
   $("#name-greeting").html(`Hey ${userName}, edit your recipe!`);
 
   $(".addIngredButton").on("click", (e) => {
@@ -187,26 +192,84 @@ function signUpUser() {
   let email = $("#signup-email").val();
   let password = $("#signup-password").val();
 
-  MODEL.signup(first, last, email, password);
+  MODEL.signup(first, last, email, password, routeToHome);
 
   $("#fname").val("");
   $("#lname").val("");
   $("#signup-email").val("");
-  $("#signup-password").val();
+  $("#signup-password").val("");
+
+  $(".nav-links").html(`
+  <a href="#home" id="home">Home</a>
+        <a href="#browse" id="browse">Browse</a>
+        <a href="#create-recipe" id="create-recipe">Create Recipe</a>
+        <a href="#your-recipes" id="your-recipes">Your Recipes</a>
+        <a class="site-btn" id="nav-login" href="#login"><span>Logout</span></a>
+  `);
 }
 
 function logInUser() {
   let email = $("#login-email").val();
   let password = $("#login-password").val();
 
-  MODEL.login(email, password);
+  MODEL.login(email, password, routeToHome);
 
   $("#login-email").val("");
-  $("#login-password").val();
+  $("#login-password").val("");
+
+  $(".nav-links").html(`
+  <a href="#home" id="home">Home</a>
+        <a href="#browse" id="browse">Browse</a>
+        <a href="#create-recipe" id="create-recipe">Create Recipe</a>
+        <a href="#your-recipes" id="your-recipes">Your Recipes</a>
+        <a class="site-btn" id="nav-login" href="#login"><span>Logout</span></a>
+  `);
 }
 
 function logOutUser() {
-  MODEL.logout();
+  MODEL.logout(routeToHome);
+  $(".nav-links").html(`
+  <a href="#home" id="home">Home</a>
+        <a href="#browse" id="browse">Browse</a>
+        <a href="#create-recipe" id="create-recipe">Create Recipe</a>
+        
+        <a class="site-btn" id="nav-login" href="#login"><span>Login</span></a>
+  `);
+}
+
+function routeToHome() {
+  window.location.hash = "#home";
+}
+
+function displayAllRecipes() {
+  //you can use this allrecipes variable to display the whole list of recipes
+  //allRecipes will come back as an array of objects
+  let allRecipes = model.viewAllRecipes();
+  $.each(allRecipes, (idx, recipe) => {
+    //append to the page here
+  });
+}
+
+function displayUserRecipes(userName) {
+  let recipes = MODEL.viewUserRecipes();
+  $("#name-greeting").html(`Hey ${userName}, here are your recipes!`);
+  console.log(recipes);
+  $.each(recipes, (idx, recipe) => {
+    $(".recipes-container").append(`<div class="recipe-image-section">
+    <img src="${recipe.image}" alt="">
+    <button class="site-btn" id="view-recipe-btn">View</button>
+    </div>
+    <div class="recipe-description">
+    <h3>${recipe.name}</h3>
+    <p>${recipe.desc}</p>
+    <p>${recipe.time}</p>
+    <p>${recipe.servings}</p>
+    </div>
+    <div class="edit-delete-btns">
+    <button class="site-btn" id="editRecipeBtn">Edit Recipe</button>
+      <button class="site-btn" id="deleteRecipeBtn">Delete</button>
+    </div>`);
+  });
 }
 
 $(document).ready(function () {

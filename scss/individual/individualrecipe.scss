@@ -1,0 +1,38 @@
+.recipe-header{
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+    margin-top:163px;
+    position:relative;
+
+    .recipe-image-section{
+        min-width:50%;
+        
+        
+        
+
+    #sw-recipe-name{
+        transform:rotate(-90deg);
+        position:absolute;
+        left:60px;
+        top:140px;
+
+        
+    }
+    
+    img{
+        max-height:421px;
+        max-width:468px;
+        float:right;
+    }
+
+}
+.description{
+    min-width:50%;
+    margin-left:40px;
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+    flex-direction: column;
+}
+}

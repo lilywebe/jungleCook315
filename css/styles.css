@@ -275,4 +275,34 @@ footer .footer-socials .footer-svg {
   user-select: none;
 }
 
+.recipe-header {
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  margin-top: 163px;
+  position: relative;
+}
+.recipe-header .recipe-image-section {
+  min-width: 50%;
+}
+.recipe-header .recipe-image-section #sw-recipe-name {
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 60px;
+  top: 140px;
+}
+.recipe-header .recipe-image-section img {
+  max-height: 421px;
+  max-width: 468px;
+  float: right;
+}
+.recipe-header .description {
+  min-width: 50%;
+  margin-left: 40px;
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 /*# sourceMappingURL=styles.css.map */
