@@ -1,0 +1,88 @@
+.browse-recipes-page {
+    background-image: linear-gradient(rgb($site-mint,0.5), rgb($site-mint,0.5)), url("../images/recipe-hero.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: -135px;
+    margin-bottom: -50px;
+    padding: 195px 0 147px 0;
+    
+    .browse-grid {
+        margin: 0 auto;
+        max-width: 1002px;
+
+        h1 {
+            font-family: Caveat-Bold;
+            font-size: 25px;
+        }    
+
+        .browse-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 50px;
+
+            .browse-recipe {
+                max-width: 524px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                margin-right: 50px;
+
+                .browse-recipe-left {
+                    width: 300px;
+                    height: 263px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 25px;
+                        object-fit: cover;
+                    }
+                }
+
+                .browse-recipe-right {
+                    width: 224px;
+                    height: 263px;
+                    border-radius: 25px;
+                    background-color: #fff;
+
+                    h2 {
+                        font-size: 15px;
+                        font-family: Lato-Black;
+                        width: 130px;
+                        border-bottom: 4px solid #000;
+                        margin: 43px auto 20px auto;
+                    }
+
+                    p {
+                        font-family: Lato-Regular;
+                        font-size: 9px;
+                        width: 130px;
+                        margin: 0 auto 20px auto;
+                    }
+
+                    .recipe-details {
+                        display: flex;
+                        width: 100px;
+                        height: 24px;
+                        margin: auto;
+                        margin-bottom: 17px;
+
+                        img {
+                            width: 23px;
+                            height: 24px;
+                        }
+
+                        p {
+                            font-family: Lato-Regular;
+                            font-size: 10px;
+                            max-width: 80px;
+                            padding: 5px 0 0 17px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
