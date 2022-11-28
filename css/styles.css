@@ -386,4 +386,107 @@ footer .footer-socials .footer-svg {
   padding: 5px 0 0 17px;
 }
 
+.your-recipes-page {
+  background-image: linear-gradient(rgba(167, 232, 189, 0.5), rgba(167, 232, 189, 0.5)), url("../images/recipe-hero.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: -135px;
+  margin-bottom: -50px;
+  padding: 195px 0 147px 0;
+}
+.your-recipes-page #name-greeting {
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 100px;
+  margin-top: 100px;
+}
+.your-recipes-page .recipes-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 524px;
+  margin-top: 52px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description {
+  width: 224px;
+  height: 263px;
+  border-radius: 20px;
+  background-color: white;
+  text-align: center;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description h3 {
+  margin: 0 auto;
+  font-size: 15px;
+  border-bottom: 2px solid black;
+  width: 130px;
+  margin-bottom: 20px;
+  margin-top: 45px;
+  text-align: left;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description .description {
+  font-size: 10px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description .recipe-details {
+  display: flex;
+  width: 100px;
+  height: 24px;
+  margin: auto;
+  margin-bottom: 17px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description .recipe-details img {
+  width: 23px;
+  height: 24px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-description .recipe-details p {
+  font-family: Lato-Regular;
+  font-size: 10px;
+  max-width: 80px;
+  padding: 5px 0 0 17px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-image-section {
+  position: relative;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-image-section img {
+  width: 300px;
+  height: 263px;
+  border-radius: 20px;
+}
+.your-recipes-page .recipes-container .ind-container .ind-recipe .recipe-image-section a {
+  position: absolute;
+  right: 90px;
+  top: 120px;
+  width: 127px;
+  height: 42px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #FFD972;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+.your-recipes-page .edit-delete-btns {
+  margin-top: 15px;
+}
+.your-recipes-page .edit-delete-btns a {
+  height: 42px;
+  width: 127px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #FFD972;
+  text-align: center;
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+
 /*# sourceMappingURL=styles.css.map */

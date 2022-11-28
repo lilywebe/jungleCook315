@@ -18,8 +18,14 @@ function route() {
     MODEL.currentPage("create-recipe", addRecipe);
   } else if (pageID == "your-recipes") {
     MODEL.currentPage("your-recipes", displayUserRecipes);
-  } else if (pageID == "edit-recipe") {
-    MODEL.currentPage("edit-recipe", editRecipe);
+  } else if (pageID.indexOf("/") !== -1) {
+    MODEL.currentPage(pageID, editRecipe);
+  } else if (pageID == "your-recipes") {
+    MODEL.currentPage("your-recipes", initYourRecipesListeners);
+  }
+  //if there is no underscore, indexof returns -1
+  else if (pageID.indexOf("_") !== -1) {
+    MODEL.currentPage(pageID, individualRecipe);
   } else {
     MODEL.currentPage(pageID);
   }
@@ -89,12 +95,41 @@ function addRecipe(userName) {
       recipeObj.ingredients.push(ingredient.value);
     });
     MODEL.addRecipe(recipeObj);
+    routeToHome();
   });
 }
 
 //whenever the larger "recipes page" gets made, each recipe needs to have the "edit" button pass over the recipeid
-function editRecipe(userName) {
+async function editRecipe(userName, recipeid) {
+  let recipe = MODEL.viewSingleRecipe(recipeid);
+  ingredCount = recipe.ingredients.length;
+  stepCount = recipe.steps.length;
   $("#name-greeting").html(`Hey ${userName}, edit your recipe!`);
+
+  await $(".inputs-section")
+    .append(`<input type="text" id="recipe-image" value=${recipe.image} />
+  <input type="text" id="recipe-name" value=${recipe.name} />
+  <input type="text" id="recipe-desc" value=${recipe.desc} />
+  <input type="text" id="recipe-time" value=${recipe.time} />
+  <input type="text" id="recipe-servings" value=${recipe.servings} />`);
+
+  $.each(recipe.ingredients, (idx, ingredient) => {
+    $(".ingredients-section").append(
+      `<input type="text" id="ingred${idx}" value=${ingredient} />`
+    );
+  });
+  $(".ingredients-section").append(
+    `<div class="addIngredButton"><p>+</p></div>`
+  );
+
+  $.each(recipe.steps, (idx, step) => {
+    $(".instructions-section").append(
+      `<input type="text" id="step${idx}" value=${step} />`
+    );
+  });
+  $(".instructions-section").append(
+    `<div class="addStepButton"><p>+</p></div>`
+  );
 
   $(".addIngredButton").on("click", (e) => {
     console.log("click");
@@ -149,7 +184,7 @@ function editRecipe(userName) {
     $(".ingredients-section input").each((idx, ingredient) => {
       recipeObj.ingredients.push(ingredient.value);
     });
-    MODEL.addRecipe(recipeObj);
+    MODEL.editRecipe(recipeObj);
   });
 }
 
@@ -184,6 +219,7 @@ function initListeners() {
   console.log("ready");
   $(window).on("hashchange", route);
   route();
+  MODEL.viewAllRecipes();
 }
 
 function signUpUser() {
@@ -255,21 +291,32 @@ function displayUserRecipes(userName) {
   $("#name-greeting").html(`Hey ${userName}, here are your recipes!`);
   console.log(recipes);
   $.each(recipes, (idx, recipe) => {
-    $(".recipes-container").append(`<div class="recipe-image-section">
+    $(".recipes-container")
+      .append(`<div class="ind-container"><div class="ind-recipe"><div class="recipe-image-section">
     <img src="${recipe.image}" alt="">
-    <button class="site-btn" id="view-recipe-btn">View</button>
+    <a href="#individual_recipe_${recipe.recipeid}">View</a>
     </div>
     <div class="recipe-description">
     <h3>${recipe.name}</h3>
-    <p>${recipe.desc}</p>
-    <p>${recipe.time}</p>
-    <p>${recipe.servings}</p>
+    <p class="description">${recipe.desc}</p>
+    <div class="recipe-details"><img src="./images/time.svg" alt="time-svg" /><p class="time">${recipe.time}</p></div>
+    <div class="recipe-details"><img src="./images/servings.svg" alt="servings-svg" /><p class="serving">${recipe.servings}</p></div>
     </div>
+    
+    </div>
+    
     <div class="edit-delete-btns">
-    <button class="site-btn" id="editRecipeBtn">Edit Recipe</button>
-      <button class="site-btn" id="deleteRecipeBtn">Delete</button>
-    </div>`);
+    <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
+      <a href="#delete-recipe/${recipe.recipeid}">Delete</a>
+     
+    </div>
+    </div>
+    `);
   });
+}
+
+function initYourRecipesListeners() {
+  $("");
 }
 
 $(document).ready(function () {

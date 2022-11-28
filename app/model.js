@@ -25,21 +25,24 @@ export async function signup(fname, lname, uname, pass, callback) {
 export async function login(uname, pass, callback) {
   //get user stored in local storage
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-  //check if username and password match user inputs
-  if (currentUser.username == uname) {
-    if (currentUser.password == pass) {
-      currentUser.status = true;
-      await localStorage.setItem("currentUser", JSON.stringify(currentUser));
-      console.log("logged in");
-      callback();
+  if (currentUser) {
+    //check if username and password match user inputs
+    if (currentUser.username == uname) {
+      if (currentUser.password == pass) {
+        currentUser.status = true;
+        await localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        console.log("logged in");
+        callback();
+      } else {
+        //nicer alerts needed
+        alert("wrong password");
+      }
     } else {
       //nicer alerts needed
-      alert("wrong password");
+      alert("wrong username");
     }
   } else {
-    //nicer alerts needed
-    alert("wrong username");
+    alert("website has no users");
   }
 }
 
@@ -79,6 +82,9 @@ export function addRecipe(recipeObj) {
   //set recipe in local storage
   localStorage.setItem("recipes", JSON.stringify(recipes));
 
+  //better alert needed
+  alert("You've added " + recipeObj.name + " to your recipes!");
+
   console.log(recipes);
 }
 
@@ -93,14 +99,14 @@ export function editRecipe(recipeObj) {
 
   //update values at recipe to be newly inputted values
   recipes[recipeid] = {
-    recipeid: recipeid,
-    image: image,
-    name: name,
-    description: description,
-    time: time,
-    servings: servings,
-    ingredients: ingredients,
-    instructions: instructions,
+    recipeid: recipeObj.recipeid,
+    image: recipeObj.image,
+    name: recipeObj.name,
+    description: recipeObj.description,
+    time: recipeObj.time,
+    servings: recipeObj.servings,
+    ingredients: recipeObj.ingredients,
+    instructions: recipeObj.instructions,
   };
 
   //update value in localstorage to match
@@ -139,12 +145,15 @@ export async function viewAllRecipes() {
   $.each(preLoadRecipes, (idx, recipe) => {
     allRecipes.push(recipe);
   });
-  if (user.status == true) {
-    let userRecipes = JSON.parse(localStorage.getItem("recipes"));
-    $.each(userRecipes, (idx, recipe) => {
-      allRecipes.push(recipe);
-    });
+  if (user) {
+    if (user.status == true) {
+      let userRecipes = JSON.parse(localStorage.getItem("recipes"));
+      $.each(userRecipes, (idx, recipe) => {
+        allRecipes.push(recipe);
+      });
+    }
   }
+  console.log(allRecipes);
   return allRecipes;
 }
 
@@ -163,11 +172,13 @@ export function currentPage(pageID, callback) {
     });
   } else if (pageID == "login") {
     let user = JSON.parse(localStorage.getItem("currentUser"));
-    if (user.status == true) {
-      $.get(`pages/logout.html`, function (data) {
-        $("#app").html(data);
-        callback();
-      });
+    if (user) {
+      if (user.status == true) {
+        $.get(`pages/logout.html`, function (data) {
+          $("#app").html(data);
+          callback();
+        });
+      }
     } else {
       $.get(`pages/login.html`, function (data) {
         $("#app").html(data);
@@ -186,11 +197,19 @@ export function currentPage(pageID, callback) {
       $("#app").html(data);
       callback(user.firstName);
     });
-  } else if (pageID == "edit-recipe") {
+  } else if (pageID.indexOf("/") !== -1) {
     let user = JSON.parse(localStorage.getItem("currentUser"));
+    let itemID = pageID.substring(pageID.indexOf("/") + 1);
+    let page = pageID.substring(0, pageID.indexOf("/"));
+    $.get(`pages/${page}.html`, function (data) {
+      $("#app").html(data);
+      callback(user.firstName, itemID);
+    });
+  } else if (pageID.indexOf("_") !== -1) {
+    let itemID = pageID.substring(pageID.indexOf("_") + 1);
     $.get(`pages/${pageID}.html`, function (data) {
       $("#app").html(data);
-      callback(user.firstName);
+      callback(itemID);
     });
   } else {
     $.get(`pages/${pageID}.html`, function (data) {
