@@ -35,14 +35,18 @@ export async function login(uname, pass, callback) {
         callback();
       } else {
         //nicer alerts needed
-        alert("wrong password");
+        swal("Wrong password", "Please try again.", "error");
       }
     } else {
       //nicer alerts needed
-      alert("wrong username");
+      swal("Wrong email", "Please try again.", "error");
     }
   } else {
-    alert("website has no users");
+    swal(
+      "No one has signed up yet",
+      "Please sign up before attempting to login.",
+      "error"
+    );
   }
 }
 
@@ -53,7 +57,7 @@ export function logout(callback) {
     user.status = false;
     localStorage.setItem("currentUser", JSON.stringify(user));
     console.log("logged out");
-    alert("You've been logged out");
+    swal("Success!", "You've been logged out!", "success");
     callback();
   }
 }
@@ -84,7 +88,11 @@ export function addRecipe(recipeObj) {
   localStorage.setItem("recipes", JSON.stringify(recipes));
 
   //better alert needed
-  alert("You've added " + recipeObj.name + " to your recipes!");
+  swal(
+    "Success!",
+    "You've added " + recipeObj.name + " to your recipes!",
+    "success"
+  );
 
   console.log(recipes);
 }
@@ -95,7 +103,7 @@ export function editRecipe(recipeObj) {
     var recipes = JSON.parse(localStorage.getItem("recipes"));
   } else {
     //if it doesn't already exist, we can't edit it
-    alert("recipe not found");
+    swal("Error", "Recipe not found, please try again.", "error");
   }
 
   //update values at recipe to be newly inputted values
@@ -114,7 +122,7 @@ export function editRecipe(recipeObj) {
   localStorage.setItem("recipes", JSON.stringify(recipes));
 
   console.log(recipes);
-  alert("You've edited " + recipeObj.name + "!");
+  swal("Success!", "You've edited " + recipeObj.name + "!", "success");
 }
 
 export function deleteRecipe(recipeid) {
@@ -123,7 +131,7 @@ export function deleteRecipe(recipeid) {
     var recipes = JSON.parse(localStorage.getItem("recipes"));
   } else {
     //if it doesn't already exist, we can't delete it
-    alert("recipe not found");
+    swal("Error", "Recipe not found, please try again.", "error");
   }
 
   //remove recipe
@@ -131,7 +139,7 @@ export function deleteRecipe(recipeid) {
 
   //update local storage to not have that recipe
   localStorage.setItem("recipes", JSON.stringify(recipes));
-  alert("Your recipe has been deleted");
+  swal("Success!", "Your recipe has been deleted.", "success");
   console.log(recipes);
 }
 
@@ -174,13 +182,12 @@ export function currentPage(pageID, callback) {
     });
   } else if (pageID == "login") {
     let user = JSON.parse(localStorage.getItem("currentUser"));
-    if (user) {
-      if (user.status == true) {
-        $.get(`pages/logout.html`, function (data) {
-          $("#app").html(data);
-          callback();
-        });
-      }
+
+    if (user && user.status == true) {
+      $.get(`pages/logout.html`, function (data) {
+        $("#app").html(data);
+        callback();
+      });
     } else {
       $.get(`pages/login.html`, function (data) {
         $("#app").html(data);
@@ -189,10 +196,19 @@ export function currentPage(pageID, callback) {
     }
   } else if (pageID == "create-recipe") {
     let user = JSON.parse(localStorage.getItem("currentUser"));
-    $.get(`pages/${pageID}.html`, function (data) {
-      $("#app").html(data);
-      callback(user.firstName);
-    });
+    if (user && user.status == true) {
+      $.get(`pages/${pageID}.html`, function (data) {
+        $("#app").html(data);
+        callback(user);
+      });
+    } else {
+      let user = false;
+      $.get(`pages/${pageID}.html`, function (data) {
+        $("#app").html(data);
+
+        callback(user);
+      });
+    }
   } else if (pageID == "your-recipes") {
     let user = JSON.parse(localStorage.getItem("currentUser"));
     $.get(`pages/${pageID}.html`, function (data) {
@@ -224,7 +240,7 @@ export function currentPage(pageID, callback) {
   } else {
     $.get(`pages/${pageID}.html`, function (data) {
       $("#app").html(data);
-      callback();
+      //callback();
     });
   }
 

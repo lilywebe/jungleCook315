@@ -42,63 +42,71 @@ function initLoginListeners() {
   $("#logout-submit").on("click", logOutUser);
 }
 
-function addRecipe(userName) {
-  $("#name-greeting").html(`Hey ${userName}, create your recipe!`);
+function addRecipe(user) {
+  console.log(user);
+  if (user) {
+    $("#name-greeting").html(`Hey ${user.firstName}, create your recipe!`);
 
-  $(".addIngredButton").on("click", (e) => {
-    console.log("click");
+    $(".addIngredButton").on("click", (e) => {
+      console.log("click");
 
-    $(".ingredients-section").append(
-      `<input type="text" id="ingred${ingredCount}" placeholder="Ingredient ${
-        ingredCount + 1
-      }" />`
-    );
+      $(".ingredients-section").append(
+        `<input type="text" id="ingred${ingredCount}" placeholder="Ingredient ${
+          ingredCount + 1
+        }" />`
+      );
 
-    ingredCount++;
-  });
-
-  $(".addStepButton").on("click", (e) => {
-    console.log("click");
-
-    $(".instructions-section").append(
-      `<input type="text" id="step${stepCount}" placeholder="Step ${
-        stepCount + 1
-      }" />`
-    );
-
-    stepCount++;
-  });
-  let recipeObj = {
-    image: "",
-    name: "",
-    desc: "",
-    time: "",
-    servings: "",
-    steps: [],
-    ingredients: [],
-  };
-  $("#submitBtn").on("click", (e) => {
-    e.preventDefault();
-    console.log("submit");
-
-    recipeObj.image = $("#recipe-image")[0].value;
-    recipeObj.name = $("#recipe-name")[0].value;
-    recipeObj.desc = $("#recipe-desc")[0].value;
-    recipeObj.time = $("#recipe-time")[0].value;
-    recipeObj.servings = $("#recipe-servings")[0].value;
-
-    //console.log($("#recipe-name")[0]);
-
-    $(".instructions-section input").each((idx, step) => {
-      recipeObj.steps.push(step.value);
+      ingredCount++;
     });
 
-    $(".ingredients-section input").each((idx, ingredient) => {
-      recipeObj.ingredients.push(ingredient.value);
+    $(".addStepButton").on("click", (e) => {
+      console.log("click");
+
+      $(".instructions-section").append(
+        `<input type="text" id="step${stepCount}" placeholder="Step ${
+          stepCount + 1
+        }" />`
+      );
+
+      stepCount++;
     });
-    MODEL.addRecipe(recipeObj);
-    routeToHome();
-  });
+    let recipeObj = {
+      image: "",
+      name: "",
+      desc: "",
+      time: "",
+      servings: "",
+      steps: [],
+      ingredients: [],
+    };
+    $("#submitBtn").on("click", (e) => {
+      e.preventDefault();
+      console.log("submit");
+
+      recipeObj.image = $("#recipe-image")[0].value;
+      recipeObj.name = $("#recipe-name")[0].value;
+      recipeObj.desc = $("#recipe-desc")[0].value;
+      recipeObj.time = $("#recipe-time")[0].value;
+      recipeObj.servings = $("#recipe-servings")[0].value;
+
+      //console.log($("#recipe-name")[0]);
+
+      $(".instructions-section input").each((idx, step) => {
+        recipeObj.steps.push(step.value);
+      });
+
+      $(".ingredients-section input").each((idx, ingredient) => {
+        recipeObj.ingredients.push(ingredient.value);
+      });
+      MODEL.addRecipe(recipeObj);
+      routeToHome();
+    });
+  } else {
+    $(".create-recipe-page").html("");
+    $(".create-recipe-page").html(
+      `<h2 id="name-greeting">Hey, you aren't logged in! Log in to add a recipe!</h2>`
+    );
+  }
 }
 
 //whenever the larger "recipes page" gets made, each recipe needs to have the "edit" button pass over the recipeid
@@ -219,11 +227,11 @@ function individualRecipe(recipeid) {
   });
 }
 
-async function deleteRecipe(recipeid) {
-  await $("#delete-submit").on("click", () => {
+function deleteRecipe(recipeid) {
+  $("#delete-submit").on("click", () => {
     MODEL.deleteRecipe(recipeid);
+    routeToHome();
   });
-  routeToHome();
 }
 
 function initListeners() {
@@ -248,7 +256,7 @@ function signUpUser() {
 
   $(".nav-links").html(`
   <a href="#home" id="home">Home</a>
-        <a href="#browse" id="browse">Browse</a>
+        <a href="#browse-recipes" id="browse">Browse</a>
         <a href="#create-recipe" id="create-recipe">Create Recipe</a>
         <a href="#your-recipes" id="your-recipes">Your Recipes</a>
         <a class="site-btn" id="nav-login" href="#login"><span>Logout</span></a>
@@ -266,7 +274,7 @@ function logInUser() {
 
   $(".nav-links").html(`
   <a href="#home" id="home">Home</a>
-        <a href="#browse" id="browse">Browse</a>
+        <a href="#browse-recipes" id="browse">Browse</a>
         <a href="#create-recipe" id="create-recipe">Create Recipe</a>
         <a href="#your-recipes" id="your-recipes">Your Recipes</a>
         <a class="site-btn" id="nav-login" href="#login"><span>Logout</span></a>
@@ -277,7 +285,7 @@ function logOutUser() {
   MODEL.logout(routeToHome);
   $(".nav-links").html(`
   <a href="#home" id="home">Home</a>
-        <a href="#browse" id="browse">Browse</a>
+        <a href="#browse-recipes" id="browse">Browse</a>
         <a href="#create-recipe" id="create-recipe">Create Recipe</a>
         
         <a class="site-btn" id="nav-login" href="#login"><span>Login</span></a>
@@ -314,7 +322,7 @@ function displayUserRecipes(userName) {
     </div>
     <div class="recipe-description">
     <h3>${recipe.name}</h3>
-    <p class="description">${recipe.desc}</p>
+    <p class="description">${recipe.description}</p>
     <div class="recipe-details"><img src="./images/time.svg" alt="time-svg" /><p class="time">${recipe.time}</p></div>
     <div class="recipe-details"><img src="./images/servings.svg" alt="servings-svg" /><p class="serving">${recipe.servings}</p></div>
     </div>
@@ -332,10 +340,28 @@ function displayUserRecipes(userName) {
   }
 }
 
-function initYourRecipesListeners() {
-  $("");
+function checkUserStatus() {
+  let user = MODEL.getUser();
+  if (user.status) {
+    $(".nav-links").html(`
+    <a href="#home" id="home">Home</a>
+          <a href="#browse-recipes" id="browse">Browse</a>
+          <a href="#create-recipe" id="create-recipe">Create Recipe</a>
+          <a href="#your-recipes" id="your-recipes">Your Recipes</a>
+          <a class="site-btn" id="nav-login" href="#login"><span>Logout</span></a>
+    `);
+  } else {
+    $(".nav-links").html(`
+    <a href="#home" id="home">Home</a>
+          <a href="#browse-recipes" id="browse">Browse</a>
+          <a href="#create-recipe" id="create-recipe">Create Recipe</a>
+          
+          <a class="site-btn" id="nav-login" href="#login"><span>Login</span></a>
+    `);
+  }
 }
 
 $(document).ready(function () {
   initListeners();
+  checkUserStatus();
 });
