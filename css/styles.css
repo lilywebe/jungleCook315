@@ -237,7 +237,7 @@ footer .footer-socials .footer-svg {
   margin-bottom: 30px;
   font-size: 20px;
 }
-.create-recipe-page #submitBtn {
+.create-recipe-page #submitBtn, .create-recipe-page #editBtn {
   width: 422px;
   height: 52px;
   background-color: #EFA7A7;
@@ -394,6 +394,7 @@ footer .footer-socials .footer-svg {
   margin-top: -135px;
   margin-bottom: -50px;
   padding: 195px 0 147px 0;
+  height: 800px;
 }
 .your-recipes-page #name-greeting {
   font-size: 25px;

@@ -20,6 +20,8 @@ function route() {
     MODEL.currentPage("your-recipes", displayUserRecipes);
   } else if (pageID.indexOf("/") !== -1) {
     MODEL.currentPage(pageID, editRecipe);
+  } else if (pageID.indexOf("?") !== -1) {
+    MODEL.currentPage(pageID, deleteRecipe);
   } else if (pageID == "your-recipes") {
     MODEL.currentPage("your-recipes", initYourRecipesListeners);
   }
@@ -156,6 +158,7 @@ async function editRecipe(userName, recipeid) {
   });
 
   let recipeObj = {
+    recipeid: recipeid,
     image: "",
     name: "",
     desc: "",
@@ -165,7 +168,7 @@ async function editRecipe(userName, recipeid) {
     ingredients: [],
   };
 
-  $("#submitBtn").on("click", (e) => {
+  $("#editBtn").on("click", (e) => {
     e.preventDefault();
     console.log("submit");
 
@@ -185,12 +188,13 @@ async function editRecipe(userName, recipeid) {
       recipeObj.ingredients.push(ingredient.value);
     });
     MODEL.editRecipe(recipeObj);
+    routeToHome();
   });
 }
 
 //whenever the larger "recipes page" gets made, each recipe needs to have the "view" button pass over the recipeid
 function individualRecipe(recipeid) {
-  let recipe = model.viewSingleRecipe(recipeid);
+  let recipe = MODEL.viewSingleRecipe(recipeid);
   $(".recipe-header").html(`
   <h2 id="sw-recipe-name">${recipe.name}</h2>
     <img src="${recipe.image}" alt="" />
@@ -215,11 +219,18 @@ function individualRecipe(recipeid) {
   });
 }
 
+async function deleteRecipe(recipeid) {
+  await $("#delete-submit").on("click", () => {
+    MODEL.deleteRecipe(recipeid);
+  });
+  routeToHome();
+}
+
 function initListeners() {
   console.log("ready");
   $(window).on("hashchange", route);
   route();
-  MODEL.viewAllRecipes();
+  // MODEL.viewAllRecipes();
 }
 
 function signUpUser() {
@@ -288,13 +299,18 @@ function displayAllRecipes() {
 
 function displayUserRecipes(userName) {
   let recipes = MODEL.viewUserRecipes();
-  $("#name-greeting").html(`Hey ${userName}, here are your recipes!`);
-  console.log(recipes);
-  $.each(recipes, (idx, recipe) => {
-    $(".recipes-container")
-      .append(`<div class="ind-container"><div class="ind-recipe"><div class="recipe-image-section">
+  if (recipes.length == 0) {
+    $("#name-greeting").html(
+      `Hey ${userName}, you don't have any recipes yet. Add some to see them here!`
+    );
+  } else {
+    $("#name-greeting").html(`Hey ${userName}, here are your recipes!`);
+    console.log(recipes);
+    $.each(recipes, (idx, recipe) => {
+      $(".recipes-container")
+        .append(`<div class="ind-container"><div class="ind-recipe"><div class="recipe-image-section">
     <img src="${recipe.image}" alt="">
-    <a href="#individual_recipe_${recipe.recipeid}">View</a>
+    <a href="#individual-recipe_${recipe.recipeid}">View</a>
     </div>
     <div class="recipe-description">
     <h3>${recipe.name}</h3>
@@ -307,12 +323,13 @@ function displayUserRecipes(userName) {
     
     <div class="edit-delete-btns">
     <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
-      <a href="#delete-recipe/${recipe.recipeid}">Delete</a>
+      <a href="#delete-recipe?${recipe.recipeid}">Delete</a>
      
     </div>
     </div>
     `);
-  });
+    });
+  }
 }
 
 function initYourRecipesListeners() {

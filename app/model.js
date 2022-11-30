@@ -62,6 +62,7 @@ export function viewSingleRecipe(recipeid) {
   let recipes = JSON.parse(localStorage.getItem("recipes"));
   let user = JSON.parse(localStorage.getItem("currentUser"));
   let recipe = recipes[recipeid];
+  console.log(recipe);
   return recipe;
 }
 
@@ -98,21 +99,22 @@ export function editRecipe(recipeObj) {
   }
 
   //update values at recipe to be newly inputted values
-  recipes[recipeid] = {
+  recipes[recipeObj.recipeid] = {
     recipeid: recipeObj.recipeid,
     image: recipeObj.image,
     name: recipeObj.name,
-    description: recipeObj.description,
+    description: recipeObj.desc,
     time: recipeObj.time,
     servings: recipeObj.servings,
     ingredients: recipeObj.ingredients,
-    instructions: recipeObj.instructions,
+    steps: recipeObj.steps,
   };
 
   //update value in localstorage to match
   localStorage.setItem("recipes", JSON.stringify(recipes));
 
   console.log(recipes);
+  alert("You've edited " + recipeObj.name + "!");
 }
 
 export function deleteRecipe(recipeid) {
@@ -129,7 +131,7 @@ export function deleteRecipe(recipeid) {
 
   //update local storage to not have that recipe
   localStorage.setItem("recipes", JSON.stringify(recipes));
-
+  alert("Your recipe has been deleted");
   console.log(recipes);
 }
 
@@ -207,7 +209,15 @@ export function currentPage(pageID, callback) {
     });
   } else if (pageID.indexOf("_") !== -1) {
     let itemID = pageID.substring(pageID.indexOf("_") + 1);
-    $.get(`pages/${pageID}.html`, function (data) {
+    let htmlid = pageID.substring(0, pageID.indexOf("_"));
+    $.get(`pages/${htmlid}.html`, function (data) {
+      $("#app").html(data);
+      callback(itemID);
+    });
+  } else if (pageID.indexOf("?") !== -1) {
+    let itemID = pageID.substring(pageID.indexOf("?") + 1);
+    let htmlid = pageID.substring(0, pageID.indexOf("?"));
+    $.get(`pages/${htmlid}.html`, function (data) {
       $("#app").html(data);
       callback(itemID);
     });
