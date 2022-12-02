@@ -69,6 +69,7 @@ nav .nav-links .site-btn {
   padding: 10px 20px;
   border-radius: 25px;
   background-color: #FFD972;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
 }
 nav .nav-links .site-btn:hover {
@@ -162,12 +163,14 @@ footer .footer-socials .footer-svg {
 }
 
 .login-page, .logout-page {
-  height: 600px;
+  min-height: 800px;
   width: 100%;
   background-color: #FFD972;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: -135px;
+  margin-bottom: -50px;
 }
 .login-page h2, .logout-page h2 {
   font-size: 30px;
@@ -201,9 +204,12 @@ footer .footer-socials .footer-svg {
   padding: 10px 20px;
   border-radius: 25px;
   background-color: #FFD972;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
   font-size: 25px;
   width: 209px;
+  border: none;
+  font-family: Caveat-Regular;
 }
 .login-page .signup-form, .logout-page .signup-form {
   height: 600px;
@@ -217,9 +223,12 @@ footer .footer-socials .footer-svg {
   padding: 10px 20px;
   border-radius: 25px;
   background-color: #FFD972;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
   font-size: 25px;
   width: 250px;
+  border: none;
+  font-family: Caveat-Regular;
 }
 
 .create-recipe-page {
@@ -279,34 +288,87 @@ footer .footer-socials .footer-svg {
   user-select: none;
 }
 
-.recipe-header {
+.indv-recipe {
+  margin-bottom: 93px;
+}
+.indv-recipe h2, .indv-recipe h3 {
+  font-family: Lato-Black;
+  margin-bottom: 36px;
+  letter-spacing: 3px;
+}
+.indv-recipe p {
+  font-family: Caveat-Regular;
+  font-size: 20px;
+}
+.indv-recipe .recipe-header {
   display: flex;
-  align-items: left;
   justify-content: space-between;
+  max-width: 1000px;
   margin-top: 163px;
+  margin-left: 92px;
   position: relative;
 }
-.recipe-header .recipe-image-section {
+.indv-recipe .recipe-header .recipe-image-section {
   min-width: 50%;
 }
-.recipe-header .recipe-image-section #sw-recipe-name {
+.indv-recipe .recipe-header .recipe-image-section #sw-recipe-name {
   transform: rotate(-90deg);
   position: absolute;
-  left: 60px;
-  top: 140px;
+  left: -130px;
+  top: 190px;
+  font-size: 25px;
+  font-family: Lato-Black;
+  letter-spacing: 3px;
 }
-.recipe-header .recipe-image-section img {
-  max-height: 421px;
-  max-width: 468px;
+.indv-recipe .recipe-header .recipe-image-section img {
+  height: 421px;
+  width: 468px;
+  object-fit: cover;
   float: right;
 }
-.recipe-header .description {
+.indv-recipe .recipe-header .description {
   min-width: 50%;
   margin-left: 40px;
   display: flex;
-  align-items: left;
   justify-content: space-between;
   flex-direction: column;
+}
+.indv-recipe .recipe-header .description .desc-box {
+  margin-bottom: 40px;
+}
+.indv-recipe .recipe-header .description .desc-box h2 {
+  font-size: 25px;
+}
+.indv-recipe .recipe-header .description .desc-box h3 {
+  font-size: 20px;
+}
+.indv-recipe .recipe-header .description .desc-box p {
+  max-width: 455px;
+}
+.indv-recipe .bottom-container {
+  max-width: 1000px;
+  width: 100%;
+  margin-left: 125px;
+}
+.indv-recipe .bottom-container .ingredients-instructions {
+  margin-top: 60px;
+}
+.indv-recipe .bottom-container .ingredients-instructions .list-container {
+  max-width: 968px;
+}
+.indv-recipe .bottom-container .site-button {
+  width: 158px;
+  height: 52px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #FFD972;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  font-family: Caveat-Regular;
+  font-size: 20px;
+  margin-top: 68px;
+  letter-spacing: 3px;
+  padding-top: 13px;
 }
 
 .browse-recipes-page {
