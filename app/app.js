@@ -313,6 +313,7 @@ function displayAllRecipes() {
   });
 }
 
+//display user recipes on the "your recipes page"
 function displayUserRecipes(userName) {
   let recipes = MODEL.viewUserRecipes();
   if (recipes.length == 0) {
@@ -324,25 +325,36 @@ function displayUserRecipes(userName) {
     console.log(recipes);
     $.each(recipes, (idx, recipe) => {
       $(".recipes-container")
-        .append(`<div class="ind-container"><div class="ind-recipe"><div class="recipe-image-section">
-    <img src="${recipe.image}" alt="">
-    <a href="#individual-recipe_${recipe.recipeid}">View</a>
-    </div>
-    <div class="recipe-description">
-    <h3>${recipe.name}</h3>
-    <p class="description">${recipe.description}</p>
-    <div class="recipe-details"><img src="./images/time.svg" alt="time-svg" /><p class="time">${recipe.time}</p></div>
-    <div class="recipe-details"><img src="./images/servings.svg" alt="servings-svg" /><p class="serving">${recipe.servings}</p></div>
-    </div>
-    
-    </div>
-    
-    <div class="edit-delete-btns">
-    <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
-      <a href="#delete-recipe?${recipe.recipeid}">Delete</a>
-     
-    </div>
-    </div>
+        .append(`
+          <div class="ind-container">
+            <div class="ind-recipe">
+
+              <div class="recipe-image-section">
+                <img src="${recipe.image}" alt="">
+                <a href="#individual-recipe_${recipe.recipeid}">View</a>
+              </div>
+
+              <div class="recipe-description">
+                <h3>${recipe.name}</h3>
+                <p class="description">${recipe.description}</p>
+
+                <div class="recipe-details">
+                  <img src="./images/time.svg" alt="time-svg" />
+                  <p class="time">${recipe.time}</p>
+                </div>
+
+                <div class="recipe-details">
+                  <img src="./images/servings.svg" alt="servings-svg" />
+                  <p class="serving">${recipe.servings}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="edit-delete-btns">
+              <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
+              <a href="#delete-recipe?${recipe.recipeid}">Delete</a>
+            </div>
+          </div>
     `);
     });
   }

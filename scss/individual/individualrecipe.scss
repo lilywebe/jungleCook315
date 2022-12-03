@@ -16,18 +16,24 @@
         display: flex;
         justify-content: space-between;
         max-width: 1000px;
+        width: 100%;
         margin-top: 163px;
         margin-left: 92px;
-        position:relative;
+        position: relative;
     
         .recipe-image-section {
             min-width:50%;
+            display: flex;
     
             #sw-recipe-name {
                 transform: rotate(-90deg);
-                position: absolute;
-                left: -130px;
+                // position: absolute;
+                // left: -70px;
                 top: 190px;
+                height: 15px;
+                width: 40px;
+                margin-top: 50%;
+                margin-right: 10px;
                 font-size: 25px;
                 font-family: Lato-Black;
                 letter-spacing: 3px;
@@ -37,7 +43,7 @@
                 height: 421px;
                 width: 468px;
                 object-fit: cover;
-                float:right;
+                float: right;
             }
         }
 
@@ -81,6 +87,7 @@
 
         .site-button {
             @include site-button();
+            cursor: pointer;
             font-family: Caveat-Regular;
             font-size: 20px;
             margin-top: 68px;
