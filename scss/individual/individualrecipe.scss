@@ -1,38 +1,98 @@
-.recipe-header{
-    display: flex;
-    align-items: left;
-    justify-content: space-between;
-    margin-top:163px;
-    position:relative;
+.indv-recipe {
+    margin-bottom: 93px;
 
-    .recipe-image-section{
-        min-width:50%;
-        
-        
-        
+    h2, h3 {
+        font-family: Lato-Black;
+        margin-bottom: 36px;
+        letter-spacing: 3px;
+    }
 
-    #sw-recipe-name{
-        transform:rotate(-90deg);
-        position:absolute;
-        left:60px;
-        top:140px;
-
-        
+    p {
+        font-family: Caveat-Regular;
+        font-size: 20px;
     }
     
-    img{
-        max-height:421px;
-        max-width:468px;
-        float:right;
+    .recipe-header {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1000px;
+        width: 100%;
+        margin-top: 163px;
+        margin-left: 92px;
+        position: relative;
+    
+        .recipe-image-section {
+            min-width:50%;
+            display: flex;
+    
+            #sw-recipe-name {
+                transform: rotate(-90deg);
+                // position: absolute;
+                // left: -70px;
+                top: 190px;
+                height: 15px;
+                width: 40px;
+                margin-top: 50%;
+                margin-right: 10px;
+                font-size: 25px;
+                font-family: Lato-Black;
+                letter-spacing: 3px;
+            }
+        
+            img {
+                height: 421px;
+                width: 468px;
+                object-fit: cover;
+                float: right;
+            }
+        }
+
+        .description{
+            min-width: 50%;
+            margin-left: 40px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            .desc-box {
+                margin-bottom: 40px;
+
+                h2 { 
+                    font-size: 25px; 
+                    }
+
+                h3 { 
+                    font-size: 20px; 
+                }
+
+                p { 
+                    max-width: 455px; 
+                }
+            }
+        }
     }
 
-}
-.description{
-    min-width:50%;
-    margin-left:40px;
-    display: flex;
-    align-items: left;
-    justify-content: space-between;
-    flex-direction: column;
-}
+    .bottom-container {
+        max-width: 1000px;
+        width: 100%;
+        margin-left: 125px;
+
+        .ingredients-instructions {
+            margin-top: 60px;
+
+            .list-container {
+                max-width: 968px;
+            }
+        }
+
+        .site-button {
+            @include site-button();
+            cursor: pointer;
+            font-family: Caveat-Regular;
+            font-size: 20px;
+            margin-top: 68px;
+            letter-spacing: 3px;
+            padding-top: 13px;
+        }
+    }
 }

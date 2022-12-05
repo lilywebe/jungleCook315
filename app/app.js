@@ -204,25 +204,33 @@ async function editRecipe(userName, recipeid) {
 function individualRecipe(recipeid) {
   let recipe = MODEL.viewSingleRecipe(recipeid);
   $(".recipe-header").html(`
-  <h2 id="sw-recipe-name">${recipe.name}</h2>
-    <img src="${recipe.image}" alt="" />
+    <div class="recipe-image-section">
+      <h2 id="sw-recipe-name">${recipe.name}</h2>
+      <img src="${recipe.image}" alt="" />
+    </div>
     <div class="description">
-      <h2>Description:</h2>
-      <p>${recipe.description}</p>
-      <h3>Total Time:</h3>
-      <p>${recipe.time}</p>
-      <h3>Servings:</h3>
-      <p>${recipe.servings}</p>
+      <div class="desc-box">
+        <h2>Description:</h2>
+        <p>${recipe.description}</p>
+      </div>
+      <div class="desc-box">
+        <h3>Total Time:</h3>
+        <p>${recipe.time}</p>
+      </div>
+      <div class="desc-box">
+        <h3>Servings:</h3>
+        <p>${recipe.servings}</p>
+      </div>
     </div>
   `);
   $(recipe.ingredients).each((idx, ingredient) => {
     $(".ingredients").append(`
-    <div>${ingredient}</div>
+    <p>${ingredient}</p>
     `);
   });
   $(recipe.instructions).each((idx, instruction) => {
     $(".instructions").append(`
-    <div>${instruction}</div>
+    <p>${instruction}</p>
     `);
   });
 }
@@ -305,6 +313,7 @@ function displayAllRecipes() {
   });
 }
 
+//display user recipes on the "your recipes page"
 function displayUserRecipes(userName) {
   let recipes = MODEL.viewUserRecipes();
   if (recipes.length == 0) {
