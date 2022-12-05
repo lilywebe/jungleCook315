@@ -203,6 +203,7 @@ async function editRecipe(userName, recipeid) {
 //whenever the larger "recipes page" gets made, each recipe needs to have the "view" button pass over the recipeid
 function individualRecipe(recipeid) {
   let recipe = MODEL.viewSingleRecipe(recipeid);
+
   $(".recipe-header").html(`
     <div class="recipe-image-section">
       <h2 id="sw-recipe-name">${recipe.name}</h2>
@@ -211,7 +212,7 @@ function individualRecipe(recipeid) {
     <div class="description">
       <div class="desc-box">
         <h2>Description:</h2>
-        <p>${recipe.description}</p>
+        <p>${recipe.desc}</p>
       </div>
       <div class="desc-box">
         <h3>Total Time:</h3>
@@ -233,6 +234,9 @@ function individualRecipe(recipeid) {
     <p>${instruction}</p>
     `);
   });
+  $(".site-button").append(
+    `<a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>`
+  );
 }
 
 function deleteRecipe(recipeid) {
