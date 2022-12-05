@@ -322,7 +322,7 @@ function displayUserRecipes(userName) {
     </div>
     <div class="recipe-description">
     <h3>${recipe.name}</h3>
-    <p class="description">${recipe.description}</p>
+    <p class="description">${recipe.desc}</p>
     <div class="recipe-details"><img src="./images/time.svg" alt="time-svg" /><p class="time">${recipe.time}</p></div>
     <div class="recipe-details"><img src="./images/servings.svg" alt="servings-svg" /><p class="serving">${recipe.servings}</p></div>
     </div>

@@ -111,7 +111,7 @@ export function editRecipe(recipeObj) {
     recipeid: recipeObj.recipeid,
     image: recipeObj.image,
     name: recipeObj.name,
-    description: recipeObj.desc,
+    desc: recipeObj.desc,
     time: recipeObj.time,
     servings: recipeObj.servings,
     ingredients: recipeObj.ingredients,
