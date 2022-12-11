@@ -24,21 +24,28 @@
         margin-right: 100px;
 
         .ind-container {
-            .ind-recipe {
+            margin-bottom: 50px;
+            margin-top: 50px;
+
+            .your-recipe {
+                max-width: 524px;
+                width: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: space-evenly;
-                width: 524px;
-                margin-top: 52px;
+                margin-right: 50px;
 
-                .recipe-image-section {
+                .your-recipe-left {
                     position: relative;
+                    max-width: 300px;
+                    width: 100%;
+                    height: 263px;
 
                     img {
-                        width:300px;
-                        height:263px;
-                        border-radius: 20px;
-                        object-fit: cover
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 25px;
+                        object-fit: cover;
                     }
 
                     a {
@@ -46,77 +53,78 @@
                         width: 127px;
                         height: 42px;
                         position: absolute;
-                        right: 90px;
-                        top: 120px;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
                         font-size: 20px;
                         text-decoration: none;
                         color:black;   
                     }
                 }
 
-                .recipe-description {
-                    width: 224px;
+                .your-recipe-right {
+                    max-width: 224px;
+                    width: 100%;
                     height: 263px;
-                    border-radius:20px;
-                    background-color: white;
-                    text-align: center;
-                    
-                    h3 {
-                        text-align: center;
+                    border-radius: 25px;
+                    background-color: #fff;
+
+                    .right-content {
+                        max-width: 146px;
+                        width: 100%;
                         margin: 0 auto;
-                        font-size: 15px;
-                        font-family: Lato-Black;
-                        letter-spacing: 2px;
-                        border-bottom: 3px solid black;
-                        width: 138px;
-                        margin-top: 45px;
-                        text-align:left;
-                    }
+                        padding: 10px;
 
-                    .description {
-                        font-size:10px;
-                        width: 130px;
-                        margin: 20px auto;
-                    }
-
-                    .recipe-details {
-                        display: flex;
-                        width: 100px;
-                        height: 24px;
-                        margin: auto;
-                        margin-bottom: 17px;
-
-                        img {
-                            width: 23px;
-                            height: 24px;
+                        h2 {
+                            font-size: 15px;
+                            font-family: Lato-Black;
+                            border-bottom: 4px solid #000;
+                            margin: 43px 0 20px 0;
                         }
-
+    
                         p {
                             font-family: Lato-Regular;
-                            font-size: 10px;
-                            max-width: 130px;
-                            padding: 5px 0 0 17px;
+                            font-size: 9px;
+                            margin-bottom: 20px;
+                            text-align: leftS;
+                        }
+    
+                        .your-recipe-details {
+                            display: flex;
+                            width: 150px;
+                            margin: 0 20px;
+    
+                            img {
+                                width: 23px;
+                                height: 24px;
+                            }
+    
+                            p {
+                                font-family: Lato-Regular;
+                                font-size: 10px;
+                                padding: 5px 0 0 17px;
+                            }
                         }
                     }
                 }
             }
-        }
-    }
 
-    .edit-delete-btns {
-        margin-top: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        width: 300px;
-        
-        a {
-            @include site-button();
-            width: 127px;
-            height: 42px;
-            font-size: 20px;
-            text-decoration: none;
-            color:black;
+            .edit-delete-btns {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                width: 300px;
+                
+                a {
+                    @include site-button();
+                    width: 127px;
+                    height: 42px;
+                    font-size: 20px;
+                    text-decoration: none;
+                    color:black;
+                }
+            }
         }
     }
 }

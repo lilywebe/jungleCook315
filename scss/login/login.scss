@@ -40,7 +40,6 @@
     .login-form, .logout-form{
         height:300px;
         display: flex;
-        //lign-items: center;
         justify-content: space-evenly;
         flex-direction: column;
         button{
@@ -57,7 +56,6 @@
     .signup-form{
         height:600px;
         display: flex;
-        //align-items: center;
         justify-content: space-evenly;
         flex-direction: column;
         button{
@@ -70,4 +68,11 @@
        
     }
     
+}
+
+@media screen and (max-width: $tablet-width) {
+    .login-page {
+        padding: 172px 0;
+        flex-direction: column;
+    }
 }

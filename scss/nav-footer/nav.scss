@@ -10,6 +10,18 @@ nav {
     .nav-logo {
         width: 167px;
         height: 55px;
+        padding-right: 10px;
+    }
+
+    .nav-hamburger {
+        width: 31px;
+        display: none;
+        cursor: pointer;
+        
+        hr {
+            margin-bottom: 10px;
+            border: 1px solid #000;
+        }
     }
 
     .nav-links {
@@ -44,6 +56,23 @@ nav {
 
         .current-page {
             border-bottom: 3px solid #000;
+        }
+    }
+}
+
+@media screen and (max-width: 840px) {
+    nav {
+        .nav-logo {
+            width: 136px;
+            height: 47px;
+        }
+
+        .nav-hamburger {
+            display: block;
+        }
+
+        .nav-links {
+            display: none;
         }
     }
 }

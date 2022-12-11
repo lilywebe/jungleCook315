@@ -104,7 +104,7 @@ function addRecipe(user) {
   } else {
     $(".create-recipe-page").html("");
     $(".create-recipe-page").html(
-      `<h2 id="name-greeting">Hey, you aren't logged in! Log in to add a recipe!</h2>`
+      `<h2 id="login-greeting">Hey, you aren't logged in! Log in to add a recipe!</h2>`
     );
   }
 }
@@ -206,7 +206,9 @@ function individualRecipe(recipeid) {
 
   $(".recipe-header").html(`
     <div class="recipe-image-section">
-      <h2 id="sw-recipe-name">${recipe.name}</h2>
+      <div id="sw-recipe-name">
+        <h2>${recipe.name}</h2>
+      </div>
       <img src="${recipe.image}" alt="" />
     </div>
     <div class="description">
@@ -317,7 +319,7 @@ function displayAllRecipes() {
   });
 }
 
-//display user recipes on the "your recipes page"
+//display all user recipes on the "your recipes" page
 function displayUserRecipes(userName) {
   let recipes = MODEL.viewUserRecipes();
   if (recipes.length == 0) {
@@ -329,26 +331,40 @@ function displayUserRecipes(userName) {
     console.log(recipes);
     $.each(recipes, (idx, recipe) => {
       $(".recipes-container")
-        .append(`<div class="ind-container"><div class="ind-recipe"><div class="recipe-image-section">
-    <img src="${recipe.image}" alt="">
-    <a href="#individual-recipe_${recipe.recipeid}">View</a>
-    </div>
-    <div class="recipe-description">
-    <h3>${recipe.name}</h3>
-    <p class="description">${recipe.desc}</p>
-    <div class="recipe-details"><img src="./images/time.svg" alt="time-svg" /><p class="time">${recipe.time}</p></div>
-    <div class="recipe-details"><img src="./images/servings.svg" alt="servings-svg" /><p class="serving">${recipe.servings}</p></div>
-    </div>
-    
-    </div>
-    
-    <div class="edit-delete-btns">
-    <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
-      <a href="#delete-recipe?${recipe.recipeid}">Delete</a>
-     
-    </div>
-    </div>
-    `);
+        .append(`
+          <div class="ind-container">
+            <div class="your-recipe">
+
+              <div class="your-recipe-left">
+                <img src="${recipe.image}" alt="">
+                <a href="#individual-recipe_${recipe.recipeid}">View</a>
+              </div>
+
+              <div class="your-recipe-right">
+                <div class="right-content">
+                  <h2>${recipe.name}</h2>
+                  <p>${recipe.desc}</p>
+
+                  <div class="your-recipe-details">
+                    <img src="./images/time.svg" alt="time-svg"/>
+                    <p>${recipe.time}</p>
+                  </div>
+
+                  <div class="your-recipe-details">
+                    <img src="./images/servings.svg" alt="servings-svg"/>
+                    <p>${recipe.servings}</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="edit-delete-btns">
+              <a href="#edit-recipe/${recipe.recipeid}">Edit Recipe</a>
+              <a href="#delete-recipe?${recipe.recipeid}">Delete</a>  
+            </div>
+          </div>
+        `);      
     });
   }
 }

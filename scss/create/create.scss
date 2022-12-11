@@ -1,13 +1,19 @@
 .create-recipe-page{
-    max-width:500px;
-    margin: 0 auto;
+    max-width: 1000px;
+    margin: 0 150px;
+    // padding: 0 150px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-    margin-top:40px;
-    position:relative;
-    text-align: left;
+    margin-top: 40px;
+    position: relative;
+    align-items: left;
+    min-height: $site-height;
+
+    #name-greeting {
+        font-family: Caveat-Bold;
+    }
 
     .section-header{
         margin-bottom:30px;
@@ -17,18 +23,16 @@
     #submitBtn, #editBtn{
         @include site-button();
         cursor: pointer;
-        width: 422px;
-        height: 52px;
+        max-width: 422px;
+        width: 100%;
         background-color: $site-darkPink;
-        border-bottom:0;
-        border-radius: 25px;
+        border-bottom: 0;
         font-size: 25px;
     }
 
     h2{
         margin-top: 100px;
         margin-bottom: 100px;
-        
     }
 
     input{
@@ -45,6 +49,7 @@
     .ingredients-section, .instructions-section{
         position:relative;
         margin-bottom:50px;
+        width: 100%;
 
         .addIngredButton, .addStepButton{
             width:50px;
@@ -62,5 +67,11 @@
             bottom:110px;
             user-select: none;
         }
+    }
+}
+
+@media screen and (max-width: $tablet-width) {
+    .create-recipe-page {
+        margin: 0 105px;
     }
 }
